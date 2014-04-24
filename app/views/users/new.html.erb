@@ -1,0 +1,23 @@
+<h3>Registration</h3>
+<form method='post' action='/users' >
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<label>User Name:</label>
+	<input type='text' name='user_name' value='<%= flash[:user_name] %>' />
+	<label>First Name:</label>
+	<input type='text' name='first_name' value='<%= flash[:first_name] %>' />
+	<label>Last Name:</label>
+	<input type='text' name='last_name' value='<%= flash[:last_name] %>' />
+	<label>Email Address:</label>
+	<input type='text' name='email_address' value='<%= flash[:email_address] %>' />
+	<label>Password:</label>
+	<input type='password' name='password'  />
+	<label>Confirm Password:</label>
+	<input type='password' name='confirm_password'  />
+	<input type='submit' value='Register' />
+</form>
+	<a href="/">Back</a>
+	<% if @user %>
+		<% @user.errors.full_messages.each do |message| %>
+			<p><%= message %></p>
+		<% end %>
+	<% end %>

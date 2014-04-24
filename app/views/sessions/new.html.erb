@@ -1,0 +1,9 @@
+<h3>Login</h3>
+<form method='post' action='/login' >
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type='text' name='email_address'>
+	<input type='password' name='password'>
+	<input type='submit' value='Login'>
+</form>
+<a href="/users/new">Register</a>
+<%= flash[:error] %>
