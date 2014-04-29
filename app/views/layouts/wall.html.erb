@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TheWallRails</title>
+  <%= stylesheet_link_tag    'application' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div class='container'>
+	
+		<div class='row'>
+			<div class="col-md-12">
+				<%= yield :navbar %>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class="col-md-12">
+				<%= yield :header %>
+			</div>
+		</div>
+		
+		<div class='row'>
+			<div class="col-md-10">
+				<%= yield :wall %>
+			</div>
+			<div class="col-md-2">
+				<%= yield :friendsList %>
+				<%= yield :othersList %>
+			</div>
+		</div>
+	
+	</div>
+</body>
+</html>

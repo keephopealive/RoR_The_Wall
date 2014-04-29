@@ -2,6 +2,7 @@ module SessionsHelper
 	def sign_in(user)
 		session[:user_id] = user.id
 		self.current_user = user
+	    redirect_to '/sessions/show'	
 	end
 
 	def current_user=(user)
@@ -16,9 +17,10 @@ module SessionsHelper
 		!current_user.nil?
 	end
 
-	def sign_out
+	def sign_out_redirect
 		session[:user_id] = nil
 		self.current_user = nil
+		redirect_to '/sessions/new'
 	end
 
 	def current_user?(user)
@@ -26,6 +28,6 @@ module SessionsHelper
 	end
 
 	def deny_access
-		redirect_to signin_path, :notice => "Please sign in to access this page."
+		redirect_to '/signin', :notice => "Please sign in to access this page."
 	end
 end

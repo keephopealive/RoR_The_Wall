@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140423193302) do
+ActiveRecord::Schema.define(version: 20140425181529) do
+
+  create_table "Comments", force: true do |t|
+    t.text     "comment"
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "Comments", ["message_id"], name: "index_comments_on_message_id"
+  add_index "Comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "friendships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "friendships", ["user_id"], name: "index_friendships_on_user_id"
+
+  create_table "messages", force: true do |t|
+    t.text     "message"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "user_name"

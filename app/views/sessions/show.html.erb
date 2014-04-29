@@ -1,0 +1,12 @@
+SESSIONS SHOW
+PROFILE PAGE
+
+<a href="/walls/show">The Wall</a>
+
+<!-- LOG OFF BTN -->
+<form method='post' action='/sessions/<%= @user.id %>'>
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type='hidden' name='_method' value='delete' >
+	<input type='submit' value='Log off'>
+</form>
+<!-- END -->

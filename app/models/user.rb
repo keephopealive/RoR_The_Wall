@@ -1,22 +1,22 @@
 class User < ActiveRecord::Base
-	attr_accessor :password
+	has_many :friendships
+	has_many :friends, through: :friendships
+	has_many :messages
+	has_many :comments
 
 	validates :user_name, 		:presence 	=> true,
 			  :length 						=> { :within => 2..40 }
-
 	validates :first_name, 		:presence 	=> true,
 			  :length 						=> { :within => 2..50 }
-
 	validates :last_name, 		:presence 	=> true,
 			  :length 						=> { :within => 2..50 }
-
 	validates :email_address, 	:presence 	=> true,
 			  :length 						=> { :maximum => 50 }
-
+	attr_accessor :password
 	validates :password, 		:presence 	=> true,
 			  :confirmation 				=> true,
 			  :length 						=> { :within => 6..50 }
-	
+  	
   	# validates :confirm_password, :presence => true
 
 	before_save :encrypt_password
@@ -36,7 +36,6 @@ class User < ActiveRecord::Base
 	end
 
 
-
 	def self.authenticate(email, submitted_password)
 		user = User.find_by(email_address: email)
 		return nil if user.nil?
@@ -46,7 +45,4 @@ class User < ActiveRecord::Base
 	def has_password?(submitted_password)
 		encrypted_password == encrypt(submitted_password)
 	end
-
-
-	
 end

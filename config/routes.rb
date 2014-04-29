@@ -1,8 +1,20 @@
 Rails.application.routes.draw do
-  root 'mains#index'
-  resources :users, :sessions, :mains
-  post '/login', to: 'sessions#create'
+  get 'friendships/show'
 
+  get 'friendships/new'
+  get 'friendships/destroy'
+  get 'comments/index'
+  get 'messages/index'
+  get 'walls/index'
+  root 'mains#index'
+  
+  resources :users, :sessions, :mains, :walls, :friendships
+  post '/login', to: 'sessions#create'
+  post '/newMessage', to: 'messages#create'
+  post '/newComment', to: 'comments#create'
+  get "/signup", :to => 'users#new'
+  get "/signin", :to => 'sessions#new'
+  get "/signout", :to => 'sessions#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,62 @@
+<h1>Friendships#show</h1>
+<p>Find me in app/views/friendships/show.html.erb</p>
+
+
+
+<h2>Welcome to FindaFriend, <%= @user.first_name + " " + @user.last_name%>. </h2>
+<!-- LOG OFF BTN -->
+<form method='post' action='/sessions/<%= @user.id %>'>
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type='hidden' name='_method' value='delete' >
+	<input type='submit' value='Log off'>
+</form>
+<!-- END -->
+<h1>Your Friends</h2> <%= flash[:notice] %> 
+<table class = "table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email Address</th>
+			<th>Remove as Friend</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @user.friends.each do |friend| %>
+		<tr>
+			<td><%= friend.first_name + " " + friend.last_name %></td>
+			<td><%= friend.email_address%></td>
+			<td>
+				<form action="/friendships/<%= friend.id %>" method="post">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<input type='hidden' name='_method' value='delete'>
+					<input type='hidden' name="friend_id" value="<%= friend.id %>" />
+					<button type="submit" class="btn btn-danger">Remove</button>
+				</form>
+				<!-- <a href="/friendships/<%= friend.id %>" data-method="delete"><button class="btn btn-danger">Remove</button></a></td> -->
+		</tr>
+	 	<%end%>
+	 </tbody>
+	</table>
+
+	<table class = "table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Add As Friend</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @nonfriends.each do |nonfriend|%>
+		<tr>
+			<td><%= nonfriend.first_name  + " " + nonfriend.last_name %></td>
+			<td>
+				<form method="post" action="/friendships">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<input type='hidden' name="friend_id" value="<%= nonfriend.id %>" />
+					<button type="submit" class="btn btn-primary">Add</button>
+				</form>
+			</td>
+		</tr>
+	 	<%end%>
+	 </tbody>
+	</table>

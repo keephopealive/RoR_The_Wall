@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  
+    include SessionsHelper
+
   # R E G I S T R A T I O N
   
   def index
@@ -10,8 +11,6 @@ class UsersController < ApplicationController
   def new
   end
 
-
-
   def create
     @user = User.new
     @user.user_name = flash[:user_name] = params[:user_name]
@@ -21,13 +20,11 @@ class UsersController < ApplicationController
     @user.password = params[:password]
     @user.save
     if @user.save
-      # USER CREATION - SUCCESS
+      # USER CREATION - SUCCESS # render :text => 'SAVED'
       flash.discard 
-      # render :text => 'SAVED'
       redirect_to '/sessions/new'
     else
-      # USER CREATION - FAILED
-      # render :text => 'REROUTE'
+      # USER CREATION - FAILED # render :text => 'REROUTE'
       render '/users/new'
     end    
   end
