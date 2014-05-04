@@ -6,12 +6,16 @@ class User < ActiveRecord::Base
 
 	validates :user_name, 		:presence 	=> true,
 			  :length 						=> { :within => 2..40 }
+
 	validates :first_name, 		:presence 	=> true,
 			  :length 						=> { :within => 2..50 }
+	
 	validates :last_name, 		:presence 	=> true,
 			  :length 						=> { :within => 2..50 }
+	
 	validates :email_address, 	:presence 	=> true,
 			  :length 						=> { :maximum => 50 }
+	
 	attr_accessor :password
 	validates :password, 		:presence 	=> true,
 			  :confirmation 				=> true,

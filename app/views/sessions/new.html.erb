@@ -1,11 +1,36 @@
-<h3>Login</h3>
-<form method='post' action='/login' >
-	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	<input type='text' name='email_address' autocomplete="off">
-	<input type='password' name='password' autocomplete="off">
-	<input type='submit' value='Login'>
-</form>
-<a href="/users/new">Register</a>
-	<a href="/">Back</a>
 
+<!-- LANDING PAGE -->
+<!-- LOGIN PAGE -->
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+
+<div class="container">
+	<div id="row1" class="row"> <!-- First Row Under Nav-Bar || (1X1) -->
+		<div id="row1-column1-outline" class="col-xs-12">
+        	<div id="row1-column1" class="col-xs-12 gold-border">
+        		
+
+
+        	</div>
+        </div>
+      	<div id="row1-column2-outline" class="col-xs-12">
+        <!-- Row 1 Column 1 of 1 (outline) -->
+        	<div id="row1-column2" class="col-xs-12 gold-border">
+        		<h3>Welcome!</h3>
+				<form method='post' action='/login' >
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<input type='text' name='email_address' autocomplete="off">
+					<input type='password' name='password' autocomplete="off">
+					<button type='submit' class="btn">Login</button>
+				</form>
+				<a href="/users/new"><button class="btn btn-success">Registration</button></a>
+				<a href="/"><button class="btn">Back</button></a>
 <%= flash[:error] %>
+        <!-- END OF CONTENT -->
+      		</div> 
+    	</div>
+	</div>
+</div>
+
+

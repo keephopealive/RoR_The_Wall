@@ -1,0 +1,19 @@
+<h2> <%= @otherUser.first_name %>'s Profile Page</h2>
+<a href="/walls/show"><button class="btn btn-primary">The Wall</button></a>
+<!-- END -->
+<a href="/sessions/<%= @user.id %>"><button class="btn btn-primary">Profile</button></a>
+<a href="/friendships/<%= @user.id %>"><button class="btn btn-primary">Friendships</button></a>
+
+<!-- LOG OFF BTN -->
+<form method='post' action='/sessions/<%= @user.id %>'>
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type='hidden' name='_method' value='delete' >
+	<button type='submit' class="btn btn-danger">Log off</button>
+<h3> Profile Page </h3>
+<h3> <%= @otherUser.first_name %> <%= @otherUser.last_name %></h3>
+
+<h3> First Name: <%= @otherUser.first_name %></h3>
+
+<h3> Last Name: <%= @otherUser.last_name %></h3>
+
+<h3> Email Address: <%= @otherUser.email_address %></h3>

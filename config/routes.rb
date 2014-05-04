@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   get 'friendships/show'
-
   get 'friendships/new'
   get 'friendships/destroy'
   get 'comments/index'
   get 'messages/index'
   get 'walls/index'
   root 'mains#index'
-  
+  post "/friendships/showOther"
+
   resources :users, :sessions, :mains, :walls, :friendships
   post '/login', to: 'sessions#create'
   post '/newMessage', to: 'messages#create'

@@ -1,82 +1,77 @@
-<% content_for :header do %>
-	<div>
-		<h1>Welcome to the Wall</h1>
-		<h4>Your currently logged in as: <%= @user.first_name %></h4>
-		<h4>Not <%= @user.first_name %>? <a href="">click here</a> to log off.</h4>
-		<!-- LOG OFF BTN -->
-		<form method='post' action='/sessions/<%= @user.id %>'>
-			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-			<input type='hidden' name='_method' value='delete' >
-			<input type='submit' value='Log off'>
-		</form>
-		<!-- END -->
-	</div>
-<% end %>
-
-
-
-
-
-
-<% content_for :friendsList do %>
-	<div class="panel">
-		<h3>Invite a friend!</h3>
-		<input type='email' placeholder="Enter your friend's email.">
-	</div>
-	<div class="panel">
-		<h2>Your Friends</h2>
-		<% @user.friends.each do |friend| %>
-		<h3><%= friend.first_name %></h3>
-		<% end %>
-	</div>
-<% end %>
-
-
-<% content_for :othersList do %>
-	<div class="panel">
-		<h2>Others</h2>
-		<% @nonfriends.each do |nonfriend| %>
-		<h3><%= nonfriend.first_name %></h3>
-		<% end %>
-	</div>
-<% end %>
-
-
-<% content_for :wall do %>
- <!-- NEW MESSAGE INPUT BOX AND SUBMIT -->
-	<form method='post' action='/newMessage'>
-		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		<input type='text' name='message'>
-		<input type='hidden' name='user_id' value='<%= @user.id %>'>
-		<input type='submit' value='Submit Message'>
-	</form>
-<!-- END -->
-
-	<% @messages.reverse_each do |message| %>
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title"><%= message.user.first_name %></h3> 
-			</div>
-			<div class="panel-body">
-				<h2><%= message.message %></h2>
-			</div>
+<div class='container'>
+	<div class='row'>
+		<div class="col-md-12">
+			<h1>Welcome to the Wall</h1>
+			<h4>Your currently logged in as: <%= @user.first_name %></h4>
 		</div>
-			<% message.comments.each do |comment| %>
-				<div class="panel panel-info">
+	</div>
+	<div class='row'>
+		<div class="col-md-12">
+			<a href="/sessions/<%= @user.id %>"><button class="btn btn-primary">Profile</button></a>
+			<!-- GOTO: FRIENDS -->
+			<a href="/friendships/<%= @user.id %>"><button class="btn btn-primary">Friendships</button></a>
+			<form method='post' action='/sessions/<%= @user.id %>'>
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type='hidden' name='_method' value='delete' >
+				<button type='submit' class="btn btn-danger">Log off</button>
+			</form>
+		</div>
+	</div>
+	
+	<div class='row'>
+		<div class="col-md-10">
+			 <!-- NEW MESSAGE INPUT BOX AND SUBMIT -->
+			<form method='post' action='/newMessage'>
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type='text' name='message'>
+				<input type='hidden' name='user_id' value='<%= @user.id %>'>
+				<input type='submit' value='Submit Message'>
+			</form>
+			<!-- END -->
+			<% @messages.reverse_each do |message| %>
+				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title"> <%= comment.user.first_name %> </h3>
+						<h3 class="panel-title"><%= message.user.first_name %></h3> 
 					</div>
 					<div class="panel-body">
-						<p><%= comment.comment %></p>
+						<h2><%= message.message %></h2>
 					</div>
-				</div>	
+				</div>
+					<% message.comments.each do |comment| %>
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<h3 class="panel-title"> <%= comment.user.first_name %> </h3>
+							</div>
+							<div class="panel-body">
+								<p><%= comment.comment %></p>
+							</div>
+						</div>	
+					<% end %>
+					<form method='post' action='/newComment'>
+						<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+						<input type='text' name='comment'>
+						<input type='hidden' name='user_id' value='<%= @user.id %>'>
+						<input type='hidden' name='message_id' value='<%= message.id %>'>
+						<input type='submit' value='comment'>	
+					</form>
 			<% end %>
-			<form method='post' action='/newComment'>
-				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-				<input type='text' name='comment'>
-				<input type='hidden' name='user_id' value='<%= @user.id %>'>
-				<input type='hidden' name='message_id' value='<%= message.id %>'>
-				<input type='submit' value='comment'>	
-			</form>
-	<% end %>
-<% end %>
+		</div>
+		<div class="col-md-2">
+			<div class="panel">
+			<h3>Invite a friend!</h3>
+			<input type='email' placeholder="Enter your friend's email.">
+		</div>
+		<div class="panel">
+			<h2>Your Friends</h2>
+			<% @user.friends.each do |friend| %>
+			<h3><%= friend.first_name %></h3>
+			<% end %>
+		</div>
+		<div class="panel">
+			<h2>Others</h2>
+			<% @nonfriends.each do |nonfriend| %>
+			<h3><%= nonfriend.first_name %></h3>
+			<% end %>
+		</div>		
+	</div>
+</div>
